@@ -77,6 +77,8 @@ def client(host, port, duration, interval=None, transfer_amount=None, format="MB
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.connect((host, port))
 
+        print(host,port)
+
         # Print client connection information
         print("----------------------------------------------------------------")
         print(f"A simpleperf client connecting to server {host}, port {port}")
