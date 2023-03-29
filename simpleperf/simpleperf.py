@@ -185,8 +185,8 @@ if __name__ == "__main__":
     if len(sys.argv) > 1:
         parser = argparse.ArgumentParser(description="Simple server/client example")
         parser.add_argument("-c", "--client", action="store_true", help="Run as client")
-        parser.add_argument("-I", "--serverip", default="127.0.0.1", help="Bind the client to the default address")
-        parser.add_argument("-b", "--bind", default="127.0.0.1", help="Bind to the default address")
+        parser.add_argument("-I", "--serverip", type=str, default="127.0.0.1", help="Bind the client to the default address")
+        parser.add_argument("-b", "--bind", type=str, default="127.0.0.1", help="Bind to the default address")
         parser.add_argument("-s", "--server", action="store_true", help="Run as server")
         parser.add_argument("-i", "--interval", type=int, help="Display interval statistics every t seconds (client mode only)")
         parser.add_argument("-p", "--port", type=int, default=8080, help="Server port number")
