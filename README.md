@@ -1,0 +1,1 @@
+# forklar hvordan man kjører koden. Simple.

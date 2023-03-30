@@ -1,22 +1,15 @@
-----------------------------------------------------------------
-A simpleperf client connecting to server 10.0.0.2, port 8088
-----------------------------------------------------------------
-Client connected with server_IP port 10.0.0.2 8088
-----------------------------------------------------------------
-----------------------------------------------------------
-ID			         Interval		 Transfer		   Bandwidth
-10.0.0.2:8088      0.0 - 25.0 s      403 MB            0.13 Mbps
-
-#dette var mellom h1 og h2, ikke riktig
-
+Host: 10.0.2.1
+Host: 10.0.1.2
+Port: 8088
 ----------------------------------------------------------------
 A simpleperf client connecting to server 10.0.1.2, port 8088
 ----------------------------------------------------------------
 Client connected with server_IP port 10.0.1.2 8088
 ----------------------------------------------------------------
+FINISHED
 ----------------------------------------------------------
-ID			Interval		Transfer		Bandwidth
-10.0.1.2:8088      0.0 - 25.0 s 1 MB            0.00 Mbps
+ID			         Interval		Transfer		  Bandwidth
+10.0.1.2:8088      0.0 - 25.0 s     121 MB            4.77 Mbps
 
 dette er mellom r1 og r2
 
