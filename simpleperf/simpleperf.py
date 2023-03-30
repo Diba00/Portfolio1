@@ -58,7 +58,7 @@ def server(host, port):
                 # Calculate total received data in megabytes and throughput in Mbps
                 total_bytes=total_data
                 total_data_mb = total_bytes / (1000000) # Received
-                throughput = total_bytes * 8 / duration /1000000 # Deler på 8 antall tall i bytes og deler med 1 mill Mbps #Rate
+                throughput = total_bytes  / duration /1000000 # Deler på 8 antall tall i bytes og deler med 1 mill Mbps #Rate
                 
                 # Format duration as a string
                 interval_str = f"{duration:.0f} s" #Interval
@@ -74,10 +74,10 @@ def server(host, port):
 #Client function
 def client(host, port, duration, interval=None, transfer_amount=None, format="MB"):
     # Create a socket and connect to server
+    print(f"Host: {host}")
+    print(f"Port: {port}")
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.connect((host, port))
-
-        print(host,port)
 
         # Print client connection information
         print("----------------------------------------------------------------")
@@ -98,7 +98,7 @@ def client(host, port, duration, interval=None, transfer_amount=None, format="MB
 
        # Main loop for sending and receiving data until duration or transfer_amount is reached
         while (time.monotonic() - start_time) < duration and (transfer_amount is None or total_data < transfer_amount):
-            # Create message and send it to the server
+            # Create message and send 1000 bytes the server
             message = b"x" * 1000
             s.sendall(message)
 
@@ -153,7 +153,7 @@ def client(host, port, duration, interval=None, transfer_amount=None, format="MB
             s.send("BYE".encode())
 
         # Receive acknowledgement message
-        ack = s.recv(1024)
+        ack = s.recv(1000) #ta bort
 
          # Calculate total data transfer and throughput in Mbps
         end_time = time.monotonic()
@@ -164,7 +164,7 @@ def client(host, port, duration, interval=None, transfer_amount=None, format="MB
         else:
             total_data_transfer = total_data / 1000000
         
-        throughput = total_data_transfer * 8 / (end_time - start_time) / 1000 #bandwith
+        throughput = total_data_transfer / (end_time - start_time) #bandwith
 
         # Print final statistics
         print("----------------------------------------------------------")
@@ -223,7 +223,7 @@ if __name__ == "__main__":
             # Create multilpe client processes to run in parallel
             clients = []
             for i in range(args.parallels):
-                client_proc = Process(target=client, args=(args.bind, args.port, args.time, args.interval, transfer_amount, args.format))
+                client_proc = Process(target=client, args=(args.serverip, args.port, args.time, args.interval, transfer_amount, args.format))
                 clients.append(client_proc)
                 client_proc.start()
                 # Wait for all client processes to finish
