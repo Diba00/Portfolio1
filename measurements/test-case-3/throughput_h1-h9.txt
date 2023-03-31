@@ -7,7 +7,7 @@ Client connected with server_IP port 10.0.7.2 8088
 ----------------------------------------------------------------
 FINISHED
 ----------------------------------------------------------
-ID			        Interval		Transfer		  Bandwidth
-10.0.7.2:8088      0.0 - 25.0 s      60 MB            2.36 Mbps
+ID			        Interval		Transfer		 Bandwidth
+10.0.7.2:8088      0.0 - 25.0 s      60 MB           18.82 Mbps
 
 #bruker server sin ip altså h9

@@ -7,11 +7,11 @@ Client connected with server_IP port 10.0.5.2 8088
 ----------------------------------------------------------------
 FINISHED
 ----------------------------------------------------------
-ID			        Interval		Transfer		  Bandwidth
-10.0.5.2:8088      0.0 - 25.0 s       94 MB            3.55 Mbps
+ID			         Interval		Transfer		 Bandwidth
+10.0.5.2:8088      0.0 - 25.0 s      91 MB           28.35 Mbps
 
 #bruker server sin ip altså h4
 
 #server altså h4: python3 simpleperf.py -s -b 10.0.5.2 -p 8088
 
-#client altså h1: python3 simpleperf.py -c 10.0.5.2 -p 8088 -t 25
+#client altså h1: python3 simpleperf.py -c -I 10.0.5.2 -p 8088 -t 25

@@ -120,9 +120,9 @@ def client(host, port, duration, interval=None, transfer_amount=None, format="MB
                 
                 # Calculate interval throughput
                 if format == "B":
-                    throughput = interval_data_transfer * 8 / interval_duration
+                    throughput = interval_data_transfer / interval_duration
                 else:
-                    throughput = interval_data_transfer * 8 / interval_duration / 1000
+                    throughput = interval_data_transfer / interval_duration / 1000
                 
                 # Print headers once before printing interval statistics
                 if not headers_printed:
@@ -162,9 +162,9 @@ def client(host, port, duration, interval=None, transfer_amount=None, format="MB
         elif format == "KB":
             total_data_transfer = total_data / 1000
         else:
-            total_data_transfer = total_data / 1000000
-        
-        throughput = total_data_transfer / (end_time - start_time) #bandwith
+            total_data_transfer = total_data  / 1000000
+         
+        throughput = total_data_transfer * 8/ (end_time - start_time) #bandwith
 
         # Print final statistics
         print("----------------------------------------------------------")
