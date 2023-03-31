@@ -1,3 +1,6 @@
+
+#example with 90M, as we can se 69% of packets are lost bs of the bandwith ability 
+#and buffer overload. BC its UDP we loose the packets.
 ------------------------------------------------------------
 Client connecting to 10.0.5.2, UDP port 5001
 Sending 1470 byte datagrams, IPG target: 124.61 us (kalman adjust)
@@ -11,6 +14,23 @@ UDP buffer size:  208 KByte (default)
 [ ID] Interval           Transfer     Bandwidth        Jitter   Lost/Total Datagrams
 [  1] 0.0000-10.0251 sec  34.8 MBytes  29.1 Mbits/sec   0.175 ms 55418/80253 (69%)
 [  1] 0.0000-10.0251 sec  33 datagrams received out-of-order
+
+#example with 25M, as we can see and as expected 0% packet loss
+
+------------------------------------------------------------
+Client connecting to 10.0.5.2, UDP port 5001
+Sending 1470 byte datagrams, IPG target: 448.61 us (kalman adjust)
+UDP buffer size:  208 KByte (default)
+------------------------------------------------------------
+[  1] local 10.0.0.2 port 51950 connected with 10.0.5.2 port 5001
+[ ID] Interval       Transfer     Bandwidth
+[  1] 0.0000-10.0010 sec  31.3 MBytes  26.2 Mbits/sec
+[  1] Sent 22296 datagrams
+[  1] Server Report:
+[ ID] Interval       Transfer     Bandwidth        Jitter   Lost/Total Datagrams
+[  1] 0.0000-9.9964 sec  31.3 MBytes  26.2 Mbits/sec   0.005 ms 0/22295 (0%)
+[  1] 0.0000-9.9964 sec  4 datagrams received out-of-order
+
 
 #host h1- h4
 #xterm h1 h4
