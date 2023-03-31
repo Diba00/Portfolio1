@@ -16,3 +16,5 @@ ID			        Interval		Transfer		 Bandwidth
 kjørte 6 vinduer samtidig, h1, h2 : ping 
                            h1, h2 : client 
                            h4, h5 : server
+
+                           må bruke to forskjellige porter
