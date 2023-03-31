@@ -1,4 +1,3 @@
-
 import re
 import socket
 import sys
@@ -42,14 +41,19 @@ def server(host, port):
                 while True:
                     # Receive and send back data
                     data = conn.recv(1000)
+                    #print(data)
 
                      # Check if the client sends the "BYE" message and break the loop if it does
-                    if data.decode() == "BYE":
+                    if "BYE" in data.decode():
+                    #if data.decode() == "BYE": FEIL SAFIQUL SA DET IKKE FUNKER ALLTID
+                        print("FINISHED")
+                    #if "0" not in data.decode():
                         break
                      # Update the total amount of data received
                     total_data += len(data)
+                    #print(total_data)
                     # Send the received data back to the cliient
-                    conn.sendall(data)
+                    #conn.sendall(data)
                     
                  # Calculate duration for throughput measurement
                 current_time = time.monotonic()
@@ -58,7 +62,7 @@ def server(host, port):
                 # Calculate total received data in megabytes and throughput in Mbps
                 total_bytes=total_data
                 total_data_mb = total_bytes / (1000000) # Received
-                throughput = total_bytes  / duration /1000000 # Deler på 8 antall tall i bytes og deler med 1 mill Mbps #Rate
+                throughput = total_bytes  / duration /1000000 # Deler p\u00e5 8 antall tall i bytes og deler med 1 mill Mbps #Rate
                 
                 # Format duration as a string
                 interval_str = f"{duration:.0f} s" #Interval
@@ -99,11 +103,11 @@ def client(host, port, duration, interval=None, transfer_amount=None, format="MB
        # Main loop for sending and receiving data until duration or transfer_amount is reached
         while (time.monotonic() - start_time) < duration and (transfer_amount is None or total_data < transfer_amount):
             # Create message and send 1000 bytes the server
-            message = b"x" * 1000
-            s.sendall(message)
+            data = b"x" * 1000
+            s.sendall(data)
 
             # Receive data from the server
-            data = s.recv(1000)
+            #data = s.recv(1000)
             total_data += len(data)
 
             # Calculate and print interval statistics if the interval flag is set
@@ -149,11 +153,12 @@ def client(host, port, duration, interval=None, transfer_amount=None, format="MB
             interval_data += len(data)
 
         # Send termination message if the transfer_amount is reached or the duration has passed
-        if transfer_amount is None or total_data >= transfer_amount:
-            s.send("BYE".encode())
+        #if transfer_amount is None or total_data >= transfer_amount:
+        print("FINISHED")
+        s.send("BYE".encode())
 
         # Receive acknowledgement message
-        ack = s.recv(1000) #ta bort
+        ack = s.recv(1000)
 
          # Calculate total data transfer and throughput in Mbps
         end_time = time.monotonic()
@@ -162,9 +167,9 @@ def client(host, port, duration, interval=None, transfer_amount=None, format="MB
         elif format == "KB":
             total_data_transfer = total_data / 1000
         else:
-            total_data_transfer = total_data  / 1000000
-         
-        throughput = total_data_transfer * 8/ (end_time - start_time) #bandwith
+            total_data_transfer = total_data / 1000000
+        
+        throughput = total_data_transfer * 8 / (end_time - start_time) #bandwith
 
         # Print final statistics
         print("----------------------------------------------------------")
@@ -239,11 +244,4 @@ if __name__ == "__main__":
     else:
         # Display help messge if no command line arguments were passed
         print("Please provide arguments for the script, either -s or -c.")
-
-
-        
-       
-
-
-
 

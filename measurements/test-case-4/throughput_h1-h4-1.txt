@@ -1,0 +1,18 @@
+Host: 10.0.5.2
+Port: 8088
+----------------------------------------------------------------
+A simpleperf client connecting to server 10.0.5.2, port 8088
+----------------------------------------------------------------
+Client connected with server_IP port 10.0.5.2 8088
+----------------------------------------------------------------
+FINISHED
+----------------------------------------------------------
+ID			        Interval		Transfer		 Bandwidth
+10.0.5.2:8088      0.0 - 25.0 s      61 MB           18.54 Mbps
+
+# h4 server: python3 simpleperf.py -s -b 10.0.5.2 -p 8088
+# h1 client: python3 simpleperf.py -c -I 10.0.5.2 -p 8088 -t 25
+
+kjørte 6 vinduer samtidig, h1, h2 : ping 
+                           h1, h2 : client 
+                           h4, h5 : server
