@@ -13,7 +13,7 @@ ID			        Interval		Transfer		 Bandwidth
 
 #xterm r1 r2
 #r2 server: python3 simpleperf.py -s -b 10.0.1.2 -p 8088
-#r1 client: python simpleperf.py -c -I 10.0.1.2 -p 8088 -t 25
+#r1 client: python3 simpleperf.py -c -I 10.0.1.2 -p 8088 -t 25
 
 dette er mellom r1 og r2
 
