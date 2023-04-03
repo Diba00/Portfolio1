@@ -43,17 +43,15 @@ def server(host, port):
                     data = conn.recv(1000)
                     #print(data)
 
-                     # Check if the client sends the "BYE" message and break the loop if it does
+                     #Check if the client sends the "BYE" message and break the loop if it does
                     if "BYE" in data.decode():
                     #if data.decode() == "BYE": FEIL SAFIQUL SA DET IKKE FUNKER ALLTID
                         print("FINISHED")
-                    #if "0" not in data.decode():
+                    
                         break
                      # Update the total amount of data received
                     total_data += len(data)
-                    #print(total_data)
-                    # Send the received data back to the cliient
-                    #conn.sendall(data)
+                  
                     
                  # Calculate duration for throughput measurement
                 current_time = time.monotonic()
@@ -62,7 +60,7 @@ def server(host, port):
                 # Calculate total received data in megabytes and throughput in Mbps
                 total_bytes=total_data
                 total_data_mb = total_bytes / (1000000) # Received
-                throughput = total_bytes  / duration /1000000 # Deler p\u00e5 8 antall tall i bytes og deler med 1 mill Mbps #Rate
+                throughput = total_bytes  / duration /1000000 #Rate
                 
                 # Format duration as a string
                 interval_str = f"{duration:.0f} s" #Interval
@@ -112,34 +110,41 @@ def client(host, port, duration, interval=None, transfer_amount=None, format="MB
 
             # Calculate and print interval statistics if the interval flag is set
             if interval and (time.monotonic() - interval_start_time) >= interval:
+                
                 # Calculate interval string and interval data transfer
                 interval_str = f"{interval_start_time:.1f} - {time.monotonic():.1f} s" #interval
+
+                #formating during the client run
+
+                #Calculate interval data transfer based on the chosen forman (B, KB, MB)
                 if format == "B":
                     interval_data_transfer = interval_data
                 elif format == "KB":
                     interval_data_transfer = interval_data / 1000
                 else:
-                    interval_data_transfer = interval_data / 1000000
+                    interval_data_transfer = interval_data / 1000000 #in MB
+
+                #Calculate interval duration   
                 interval_duration = time.monotonic() - interval_start_time 
                 
-                # Calculate interval throughput
+                # Calculate interval throughput based on the chosen format (B, KB, MB)
                 if format == "B":
                     throughput = interval_data_transfer / interval_duration
                 else:
-                    throughput = interval_data_transfer / interval_duration / 1000
+                    throughput = interval_data_transfer / interval_duration / 1000 #MB OR KB
                 
-                # Print headers once before printing interval statistics
+                # Print headers only once, before printing interval statistics
                 if not headers_printed:
                     print(f"ID\t\t\tInterval\t\tTransfer\t\tBandwidth")
                     headers_printed = True
                 
-                # Calculate interval data transfer in MB and print interval statistics
+                # Calculate interval data transfer in MB and print interval statistics based on the chosen format
                 if format == "B":
                     interval_data_mb = interval_data
                 elif format == "KB":
                     interval_data_mb = interval_data / 1000
                 else:
-                    interval_data_mb = interval_data / 1000000
+                    interval_data_mb = interval_data #/ 1000000
                 
                 # Print interval statistics
                 print(f"{host}:{port:<10}{interval_str:>10} {interval_data_mb:>5.1f} {format} {throughput:>10.2f} Mbps")
@@ -152,16 +157,16 @@ def client(host, port, duration, interval=None, transfer_amount=None, format="MB
             # Add to interval data count
             interval_data += len(data)
 
-        # Send termination message if the transfer_amount is reached or the duration has passed
-        #if transfer_amount is None or total_data >= transfer_amount:
+        # Send termination message 
         print("FINISHED")
         s.send("BYE".encode())
 
         # Receive acknowledgement message
         ack = s.recv(1000)
 
-         # Calculate total data transfer and throughput in Mbps
+         # Calculate total data transfer and throughput in Mbps. formating the final statistics
         end_time = time.monotonic()
+
         if format == "B":
             total_data_transfer = total_data
         elif format == "KB":
@@ -180,7 +185,8 @@ def client(host, port, duration, interval=None, transfer_amount=None, format="MB
         elif format == "KB":
             total_data_mb = total_data_transfer / 1000
         else:
-            total_data_mb = total_data_transfer
+            total_data_mb = total_data_transfer #dont divide with 1mil bc i want it in MB
+        
         # Print final statistics
         print(f"{host}:{port:<10}{'0.0 - ' + str(duration) + '.0 s':>10} {total_data_mb:>.0f} {format} {throughput:>15.2f} Mbps")
 
