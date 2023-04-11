@@ -234,7 +234,7 @@ if __name__ == "__main__":
         if args.time < 1:
             sys.exit("tid må være positiv")
 
-        if args.parallels > 1 or args.parallel > 5 :
+        if args.parallels < 1 or args.parallels > 5 :
             sys.exit("parallel må være mellom 1 og 5")
 
         # Convert the amount of data to transfer to bytes if the '-n' flag was passed
