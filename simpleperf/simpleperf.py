@@ -4,6 +4,7 @@ import sys
 import time
 import argparse
 import threading
+import ipaddress
                 
 # Server function
 def server(host, port):
@@ -210,9 +211,31 @@ if __name__ == "__main__":
         parser.add_argument("-n", "--num", type=str, help="Amount of data to transfer in the format <X>KB, <X>MB, <X>GB")
         parser.add_argument("-P", "--parallels", type=int, default=1, help="Number of parallel connections")
         parser.add_argument("-f", "--format", type=str, choices=["B", "KB", "MB"], default="MB", help="Choose the format of the summary of results")
+
+
+    
         
         # Parse the command line arguments and store them in the 'args' variable
         args = parser.parse_args()
+
+        if args.port < 1044 or args.port > 65535:
+            sys.exit("feil i portnummer")
+
+        try:
+            ipaddress.ip_address(args.bind)
+        except ValueError:
+            sys.exit("error i -b flagget")
+
+        try:
+            ipaddress.ip_address(args.serverip)
+        except ValueError:
+            sys.exit("error i -I flagget")
+
+        if args.time < 1:
+            sys.exit("tid må være positiv")
+
+        if args.parallels > 1 or args.parallel > 5 :
+            sys.exit("parallel må være mellom 1 og 5")
 
         # Convert the amount of data to transfer to bytes if the '-n' flag was passed
         transfer_amount = None
