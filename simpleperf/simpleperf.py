@@ -38,7 +38,7 @@ def server(host, port):
        
        #Create a parallel function so that the server can handle multiple client connecctions
         def parallel(conn,addr):
-             # Manage client connection within a context manager
+             # Manage client connection within a context manager, (with is used to create a context manager for conn) 
             with conn:
                 total_data = 0
                 
@@ -91,6 +91,7 @@ def server(host, port):
             # Accept client connection
             conn, addr = s.accept()
 
+            #creates a thread for each client connecting
             parallel_client = threading.Thread(target=parallel,args=(conn,addr))
             parallel_client.start()
             
@@ -267,7 +268,7 @@ if __name__ == "__main__":
         #if the checks are not fulfilled an error message will be displayed in the terminal
 
         if args.port < 1044 or args.port > 65535:
-            sys.exit("Portnumber has to be grater than 1044 and less than 65535")
+            sys.exit("Port number has to be grater than 1044 and less than 65535")
 
         try:
             ipaddress.ip_address(args.bind)
