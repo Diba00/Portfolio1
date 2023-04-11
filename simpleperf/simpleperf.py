@@ -6,6 +6,22 @@ import argparse
 import threading
 import ipaddress
                 
+#Description:
+#This function creates a server socket, listens for incoming connnections , and multiple 
+#client connections in parallell.
+#The function recieves and sends data to each client, measures the throughput
+#and printss the recived data and throughput rate. It also send an acknowledgement message
+#to each client and closes the connection
+
+#Arguments:
+#host: holds the IP adress of the server
+#port: port number of the server
+
+#Returns: None. The server function does not return anything. Its purpose is to create a server socket, 
+#listen for incoming connections, and handle multiple client connections.
+#But the server does print out "listening on port", "client conected with server", as well as
+#the interval, recived and rate. These are not returns but prints.
+
 # Server function
 def server(host, port):
     # Create a socket and bind to host and port
@@ -20,7 +36,7 @@ def server(host, port):
         print(f"A simpleperf server is listening on port {port}")
         print(f"----------------------------------------------------------")
        
-       #Create a parallel function so that the server can handle multiple connecctions
+       #Create a parallel function so that the server can handle multiple client connecctions
         def parallel(conn,addr):
              # Manage client connection within a context manager
             with conn:
@@ -78,6 +94,26 @@ def server(host, port):
             parallel_client = threading.Thread(target=parallel,args=(conn,addr))
             parallel_client.start()
             
+#Description:
+#This client function creates a client socket, connects to a server socket, and sends data to the server.
+#it recives data from the server and measures the throughput at intervals, printing statistics for each interval
+#and final summary of the total data transferred and the average throughput. The function takes an optional interval
+#argument to specify the interval at which to calculate throughput and an optional transfer_amount argument to specify
+#the maximum amount of data to transfer. It also takes a format argument to specify the units of the data transfer and 
+#throughput statistics.
+#
+#Arguments:
+#client_id: a string identifying the client
+#host: hold the IP address of the server
+#port: port number of the server
+#duration: the duration of the data transfer in seconds
+#interval: an optional interval at which to calculate and print throughput statistics (default is None)
+#transfer_amount: an optional maximum amount of data to transfer in bytes (default is None)
+#format: a string indicating the units of the data transfer and throughput statistcs: "B" (bytes), "KB" (kilobytes), or "MB" (megabytes). Default is "MB"
+#
+#Returns: None. Again the client function does not give us anything in return for it to fullfil its job, of sending and reciving data from a server.
+#We do indeed print out, interval, transfer and bandwidth.
+#
 
 #Client function
 def client(client_id, host, port, duration, interval=None, transfer_amount=None, format="MB"):
@@ -197,7 +233,19 @@ def client(client_id, host, port, duration, interval=None, transfer_amount=None,
         print(f"{client_id:<5} {host}:{port:<15}{'0.0 - ' + str(duration) + '.0 s':>10} {total_data_mb:>10.1f} {format:>3} {throughput:>10.2f} Mbps")
 
 
+#Description:
+#This main function is responsible for parsing command-line arguments and running the appropriate
+#client or server function based on the arguments passed. It also preforms error checking on the command line arguments.
+#
+#Arguments:
+#all of the flags, -c to -f
+#Return:
+#None: this functions purpose is not to return anything but to parse command-line arguments, run the correct client
+#or server function and check for errors. The only printing is the  error messages.
+
 # Main function
+
+# Parse add arguments for the different flags used
 if __name__ == "__main__":
     if len(sys.argv) > 1:
         parser = argparse.ArgumentParser(description="Simple server/client example")
@@ -211,31 +259,30 @@ if __name__ == "__main__":
         parser.add_argument("-n", "--num", type=str, help="Amount of data to transfer in the format <X>KB, <X>MB, <X>GB")
         parser.add_argument("-P", "--parallels", type=int, default=1, help="Number of parallel connections")
         parser.add_argument("-f", "--format", type=str, choices=["B", "KB", "MB"], default="MB", help="Choose the format of the summary of results")
-
-
-    
         
         # Parse the command line arguments and store them in the 'args' variable
         args = parser.parse_args()
 
+        #try-except for bind and ipserver, then if check to check the portnumber,time and parallels
+
         if args.port < 1044 or args.port > 65535:
-            sys.exit("feil i portnummer")
+            sys.exit("Portnumber has to be grater than 1044 and less than 65535")
 
         try:
             ipaddress.ip_address(args.bind)
         except ValueError:
-            sys.exit("error i -b flagget")
+            sys.exit("Error in the -b flag")
 
         try:
             ipaddress.ip_address(args.serverip)
         except ValueError:
-            sys.exit("error i -I flagget")
+            sys.exit("Error in the -I flag")
 
         if args.time < 1:
-            sys.exit("tid må være positiv")
+            sys.exit("Time has to be greater than 1")
 
         if args.parallels < 1 or args.parallels > 5 :
-            sys.exit("parallel må være mellom 1 og 5")
+            sys.exit("Parallel must be greater than 1 and less than 5")
 
         # Convert the amount of data to transfer to bytes if the '-n' flag was passed
         transfer_amount = None
