@@ -263,7 +263,8 @@ if __name__ == "__main__":
         # Parse the command line arguments and store them in the 'args' variable
         args = parser.parse_args()
 
-        #try-except for bind and ipserver, then if check to check the portnumber,time and parallels
+        #try-except for bind and ipserver, then if check to check the portnumber,time and parallels.
+        #if the checks are not fulfilled an error message will be displayed in the terminal
 
         if args.port < 1044 or args.port > 65535:
             sys.exit("Portnumber has to be grater than 1044 and less than 65535")
