@@ -10,7 +10,7 @@ FINISHED
 ID			        Interval		Transfer		 Bandwidth
 10.0.1.2:8088      0.0 - 25.0 s     121 MB           38.14 Mbps
 
-
+#bandwidth
 #xterm r1 r2
 #r2 server: python3 simpleperf.py -s -b 10.0.1.2 -p 8088
 #r1 client: python3 simpleperf.py -c -I 10.0.1.2 -p 8088 -t 25

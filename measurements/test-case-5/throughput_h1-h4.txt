@@ -1,24 +1,26 @@
 Host: 10.0.5.2
-Port: 8088
+Port: 8082
 ----------------------------------------------------------------
-A simpleperf client connecting to server 10.0.5.2, port 8088
+A simpleperf client connecting to server 10.0.5.2, port 8082
 ----------------------------------------------------------------
-Client connected with server_IP port 10.0.5.2 8088
+Client connected with server_IP port 10.0.5.2 8082
 ----------------------------------------------------------------
 FINISHED
 ----------------------------------------------------------
 ID			Interval		       Transfer		    Bandwidth
-10.0.5.2:8088      0.0 - 25.0 s     49 MB           14.68 Mbps
+10.0.5.2:8088      0.0 - 25.0 s     28.0 MB           8.71 Mbps
 
 
 Host: 10.0.5.2
-Port: 8088
+Port: 8082
 ----------------------------------------------------------------
-A simpleperf client connecting to server 10.0.5.2, port 8088
+A simpleperf client connecting to server 10.0.5.2, port 8082
 ----------------------------------------------------------------
-Client connected with server_IP port 10.0.5.2 8088
+Client connected with server_IP port 10.0.5.2 8082
 ----------------------------------------------------------------
 FINISHED
 ----------------------------------------------------------
 ID			        Interval		Transfer		Bandwidth
-10.0.5.2:8088      0.0 - 25.0 s      0 MB            0.11 Mbps
+10.0.5.2:8088      0.0 - 25.0 s      25.2 MB          7.63 Mbps
+
+h1: python3 simpleperf.py -c -I 10.0.5.2 -p 8082 -P 2

@@ -29,7 +29,9 @@ PING 10.0.1.2 (10.0.1.2) 56(84) bytes of data.
 25 packets transmitted, 25 received, 0% packet loss, time 24068ms
 rtt min/avg/max/mdev = 20.979/22.992/25.037/1.126 ms
 
+#RTT 
 #xterm r1 
 #ping 10.0.1.2 -c 25
+
 
 #r2 from r1

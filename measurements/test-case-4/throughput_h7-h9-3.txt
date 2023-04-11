@@ -8,4 +8,4 @@ Client connected with server_IP port 10.0.7.2 8088
 FINISHED
 ----------------------------------------------------------
 ID			        Interval		Transfer		 Bandwidth
-10.0.7.2:8088      0.0 - 25.0 s      23 MB            7.32 Mbps
+10.0.7.2:8088      0.0 - 25.0 s      23 MB            10.47 Mbps

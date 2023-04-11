@@ -1,11 +1,11 @@
 Host: 10.0.5.4
-Port: 8082
+Port: 8088
 ----------------------------------------------------------------
-A simpleperf client connecting to server 10.0.5.4, port 8082
+A simpleperf client connecting to server 10.0.5.4, port 8088
 ----------------------------------------------------------------
-Client connected with server_IP port 10.0.5.4 8082
+Client connected with server_IP port 10.0.5.4 8088
 ----------------------------------------------------------------
 FINISHED
 ----------------------------------------------------------
 ID			         Interval		Transfer		 Bandwidth
-10.0.5.4:8082      0.0 - 25.0 s      28 MB            8.80 Mbps
+10.0.5.4:8082      0.0 - 25.0 s      25.6 MB          7.46 Mbps
