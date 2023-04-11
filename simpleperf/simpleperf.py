@@ -19,7 +19,7 @@ def server(host, port):
         print(f"A simpleperf server is listening on port {port}")
         print(f"----------------------------------------------------------")
        
-       #Create a 
+       #Create a parallel function so that the server can handle multiple connecctions
         def parallel(conn,addr):
              # Manage client connection within a context manager
             with conn:
@@ -76,55 +76,7 @@ def server(host, port):
 
             parallel_client = threading.Thread(target=parallel,args=(conn,addr))
             parallel_client.start()
-"""
-            # Manage client connection within a context manager
-            with conn:
-                total_data = 0
-                
-                #Print client connection information
-                print(f"----------------------------------------------------------------------------------------------")
-                print(f"A simpleperf client with IP {addr} is connected with server IP: {addr[0]}, {addr[1]}")
-                print(f"----------------------------------------------------------------------------------------------")
-                
-                # Initialize start time for measuring throughput
-                start_time = time.monotonic()
-                
-                # Loop for receiving and semding data back to the client
-                while True:
-                    # Receive and send back data
-                    data = conn.recv(1000)
-                    #print(data)
-
-                     #Check if the client sends the "BYE" message and break the loop if it does
-                    if "BYE" in data.decode():
-                    #if data.decode() == "BYE": FEIL SAFIQUL SA DET IKKE FUNKER ALLTID
-                        print("FINISHED")
-                    
-                        break
-                     # Update the total amount of data received
-                    total_data += len(data)
-                  
-                    
-                 # Calculate duration for throughput measurement
-                current_time = time.monotonic()
-                duration = current_time - start_time
-
-                # Calculate total received data in megabytes and throughput in Mbps
-                total_bytes=total_data
-                total_data_mb = total_bytes / (1000000) # Received
-                throughput = total_bytes  / duration /1000000 #Rate
-                
-                # Format duration as a string
-                interval_str = f"{duration:.0f} s" #Interval
-                
-                 # Print throughput information
-                print(f"ID\t\tInterval\tReceived\t\tRate")
-                print(f"{addr[0]}:{addr[1]:<10}{interval_str:>2} {total_data_mb:>13.0f} MB  {throughput:>9.0f} Mbps")
-                
-                # Send ACK message and clos connection with teh client
-                conn.sendall(b"ACK: BYE")
-                conn.close()
-"""
+            
 
 #Client function
 def client(client_id, host, port, duration, interval=None, transfer_amount=None, format="MB"):
@@ -293,15 +245,7 @@ if __name__ == "__main__":
             # Wait for all client threads to finish
             for client_thread in clients:
                 client_thread.join()
-
-                """ #tried processing but I didn't get the right results with -P
-                client_proc = Process(target=client, args=(args.serverip, args.port, args.time, args.interval, transfer_amount, args.format))
-                clients.append(client_proc)
-                client_proc.start()
-                # Wait for all client processes to finish
-            for client_proc in clients:
-                client_proc.join()
-                """
+                
         # Check if running as a server
         elif args.server:
             server(args.bind, args.port)
