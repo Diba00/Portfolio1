@@ -54,7 +54,6 @@ def server(host, port):
                 while True:
                     # Receive and send back data
                     data = conn.recv(1000)
-                    #print(data)
 
                      #Check if the client sends the "BYE" message and break the loop if it does
                     if "BYE" in data.decode():
