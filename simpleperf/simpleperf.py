@@ -7,11 +7,9 @@ import threading
 import ipaddress
                 
 #Description:
-#This function creates a server socket, listens for incoming connnections , and multiple 
-#client connections in parallell.
-#The function recieves and sends data to each client, measures the throughput
-#and printss the recived data and throughput rate. It also send an acknowledgement message
-#to each client and closes the connection
+#This function creates a server socket, listens for incoming connnections , and multiple client connections in parallell.
+#The function recieves and sends data to each client, measures the throughput and printss the interval, recived data and throughput rate.
+# It also send an acknowledgement message to each client and closes the connection
 
 #Arguments:
 #host: holds the IP adress of the server
@@ -38,7 +36,7 @@ def server(host, port):
        
        #Create a parallel function so that the server can handle multiple client connecctions
         def parallel(conn,addr):
-             # Manage client connection within a context manager, (with is used to create a context manager for conn) 
+             # Manage client connection within a context manager, ("with" is used to create a context manager for conn) 
             with conn:
                 total_data = 0
                 
@@ -96,7 +94,7 @@ def server(host, port):
             
 #Description:
 #This client function creates a client socket, connects to a server socket, and sends data to the server.
-#it recives data from the server and measures the throughput at intervals, printing statistics for each interval
+#It recives data from the server and measures the throughput at intervals, printing statistics for each interval
 #and final summary of the total data transferred and the average throughput. The function takes an optional interval
 #argument to specify the interval at which to calculate throughput and an optional transfer_amount argument to specify
 #the maximum amount of data to transfer. It also takes a format argument to specify the units of the data transfer and 
@@ -147,7 +145,6 @@ def client(client_id, host, port, duration, interval=None, transfer_amount=None,
             s.sendall(data)
 
             # Receive data from the server
-            #data = s.recv(1000)
             total_data += len(data)
 
             # Calculate and print interval statistics if the interval flag is set
@@ -157,7 +154,6 @@ def client(client_id, host, port, duration, interval=None, transfer_amount=None,
                 interval_str = f"{interval_start_time:.1f} - {time.monotonic():.1f} s" #interval
 
                 #formating during the client run
-
                 #Calculate interval data transfer based on the chosen forman (B, KB, MB)
                 if format == "B":
                     interval_data_transfer = interval_data
@@ -241,7 +237,7 @@ def client(client_id, host, port, duration, interval=None, transfer_amount=None,
 #all of the flags, -c to -f
 #Return:
 #None: this functions purpose is not to return anything but to parse command-line arguments, run the correct client
-#or server function and check for errors. The only printing is the  error messages.
+#or server function and check for errors. The only printing is the error messages.
 
 # Main function
 
