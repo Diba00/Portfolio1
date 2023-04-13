@@ -27,7 +27,7 @@ UDP buffer size:  208 KByte (default)
 [  1] 0.0000-10.0010 sec  31.3 MBytes  26.2 Mbits/sec
 [  1] Sent 22296 datagrams
 [  1] Server Report:
-[ ID] Interval       Transfer     Bandwidth        Jitter   Lost/Total Datagrams
+[ ID] Interval            Transfer     Bandwidth        Jitter   Lost/Total Datagrams
 [  1] 0.0000-9.9964 sec  31.3 MBytes  26.2 Mbits/sec   0.005 ms 0/22295 (0%)
 [  1] 0.0000-9.9964 sec  4 datagrams received out-of-order
 
