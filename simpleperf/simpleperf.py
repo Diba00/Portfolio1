@@ -79,7 +79,7 @@ def server(host, port):
                 print(f"ID\t\tInterval\tReceived\t\tRate")
                 print(f"{addr[0]}:{addr[1]:<10}{interval_str:>2} {total_data_mb:>13.0f} MB  {throughput:>9.0f} Mbps")
                 
-                # Send ACK message and clos connection with teh client
+                # Send ACK message and close connection with the client
                 conn.sendall(b"ACK: BYE")
                 conn.close()
         
@@ -128,7 +128,9 @@ def client(client_id, host, port, duration, interval=None, transfer_amount=None,
         print("Client connected with server_IP port", host, port)
         print("----------------------------------------------------------------")
 
-        # Initialize start time and total data transferred, time.time() gave me high number and even though i subtracted with the end time it would not budge. Used monotonic instead
+        # Initialize start time and total data transferred, time.time() gave me high number and even though 
+        # i subtracted with the end time it would not budge. 
+        # Used monotonic instead
         start_time = time.monotonic()
         total_data = 0
 
