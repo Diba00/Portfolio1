@@ -30,4 +30,3 @@ PING 10.0.5.2 (10.0.5.2) 56(84) bytes of data.
 rtt min/avg/max/mdev = 61.644/103.030/126.860/16.090 ms
 
 
-#ping 10.0.5.2 -c 25

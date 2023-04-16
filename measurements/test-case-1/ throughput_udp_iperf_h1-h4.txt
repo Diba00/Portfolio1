@@ -32,9 +32,3 @@ UDP buffer size:  208 KByte (default)
 [  1] 0.0000-9.9964 sec  4 datagrams received out-of-order
 
 
-#host h1- h4
-#xterm h1 h4
-
-host h4: iperf -s -u
-
-client h1: iperf -c 10.0.5.2 -u -b 90M

@@ -10,5 +10,3 @@ FINISHED
 ID			         Interval		Transfer		Bandwidth
 10.0.5.3:8080      0.0 - 25.0 s      33 MB           10.37 Mbps
 
-# h5 server: python3 simpleperf.py -s -b 10.0.5.3 -p 8080
-# h2 client: python3 simpleperf.py -c -I 10.0.5.3 -p 8080 -t 25

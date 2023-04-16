@@ -11,4 +11,4 @@ ID			         Interval		Transfer		  Bandwidth
 10.0.3.2:8088      0.0 - 25.0 s       92 MB           28.46 Mbps
 
 
-dette er mellom r2 og r3
+

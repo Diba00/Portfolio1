@@ -29,4 +29,3 @@ PING 10.0.7.2 (10.0.7.2) 56(84) bytes of data.
 25 packets transmitted, 25 received, 0% packet loss, time 24053ms
 rtt min/avg/max/mdev = 80.428/89.892/98.635/4.105 ms
 
-#h1 til h9
